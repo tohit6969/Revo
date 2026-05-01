@@ -1,0 +1,6 @@
+# In Revo/src/backend/requirements.txt
+fastapi
+uvicorn
+python-dotenv
+# plus everything inference needs:
+# e.g. torch, torchvision, opencv-python, etc.

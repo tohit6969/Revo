@@ -1,0 +1,41 @@
+services:
+  backend:
+    build:
+      context: ./src/backend
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - ./src/backend:/app
+      - ./src/backend/static:/app/static
+    ports:
+      - "8000:8000"
+    depends_on:
+      - inference
+
+  inference:
+    build:
+      context: ./src/inference
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - ./src/inference:/app
+      - ./src/inference/pretrained:/app/pretrained
+
+  frontend:
+    build:
+      context: ./src/frontend
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - ./src/frontend:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+networks:
+  default:
+    name: revo-network
